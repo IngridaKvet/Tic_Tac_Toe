@@ -1,0 +1,75 @@
+html{
+    height: 100%;
+    background-color: #EBF6FF;
+}
+
+
+.greenDotOne {
+    position: absolute;
+    top: 49vh; 
+    left: 6vw; 
+}
+
+.greenDotTwo{
+    position: absolute;
+    top: 90vh; 
+    left: 2vw;
+}
+
+.greenDotThree{
+    position: absolute;
+    top: 35vh; 
+    right: 22vw; 
+}
+
+.crossOne{
+    position: absolute;
+    top: 60vh; 
+    left: -2vw; 
+}
+
+.crossTwo{
+    position: absolute;
+    top: -8vh; 
+    right: 15vw; 
+}
+
+.circleOne{
+    position: absolute;
+    top: 80vh; 
+    left: 10vw; 
+}
+
+.circleTwo{
+    position: absolute;
+    top: 25vh; 
+    right: 4vw; 
+}
+
+.redDotOne{
+    position: absolute;
+    top: 70vh; 
+    left: 20vw; 
+}
+
+.redDotTwo{
+    position: absolute;
+    top: 12vh; 
+    right: 8vw; 
+}
+
+
+@media (max-width: 1418px) { 
+    .greenDotOne,
+    .greenDotTwo,
+    .greenDotThree,
+    .redDotOne,
+    .redDotTwo,
+    .circleOne,
+    .circleTwo,
+    .crossOne,
+    .crossTwo
+     {
+        display: none;
+    }
+}
