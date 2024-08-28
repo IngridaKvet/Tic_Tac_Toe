@@ -1,7 +1,57 @@
 html{
     height: 100%;
     background-color: #EBF6FF;
+    font-family:'Fredoka','Courier New', Courier, monospace;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.sideSelection{
+    display: flex;
+    flex-direction: column;
+}
+
+.playerOptions{
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+
+
+#redCircleForX:hover circle {
+    fill: #EF476F;
+  }
+
+  #greenCircleForO:hover circle {
+    fill: #66FF89;
+  }
+
+.xOption, .oOption{
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+#xIcon, #oIcon{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+
+  #redCircleForX{
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    transform: translate(-45%, -45%);
+  }
+
+
+
+
+
 
 
 .greenDotOne {
