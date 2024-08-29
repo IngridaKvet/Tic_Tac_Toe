@@ -11,22 +11,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <img class="greenDotOne" src="img/greenDot.svg" alt="" width="80" height="80">
-    <img class="greenDotTwo" src="img/greenDot.svg" alt="" width="50" height="50">
-    <img class="greenDotThree" src="img/greenDot.svg" alt="" width="70" height="70">
-    <img class="redDotOne" src="img/redDot.svg" alt="" width="50" height="50">
-    <img class="redDotTwo" src="img/redDot.svg" alt="" width="40" height="40">
-    <img class="circleOne" src="img/oIlliustration.svg" alt="" width="220" height="220">
-    <img class="circleTwo" src="img/oIlliustration.svg" alt="" width="200" height="200">
-    <img class="crossOne" src="img/xIllustration.svg" alt="" width="250" height="250">
-    <img class="crossTwo" src="img/xIllustration.svg" alt="" width="280" height="280">
+    <img class="greenDotOne explosiveElement" src="img/greenDot.svg" alt="" width="80" height="80">
+    <img class="greenDotTwo explosiveElement" src="img/greenDot.svg" alt="" width="50" height="50">
+    <img class="greenDotThree explosiveElement" src="img/greenDot.svg" alt="" width="70" height="70">
+    <img class="redDotOne explosiveElement" src="img/redDot.svg" alt="" width="50" height="50">
+    <img class="redDotTwo explosiveElement" src="img/redDot.svg" alt="" width="40" height="40">
+    <img class="circleOne explosiveElement" src="img/oIlliustration.svg" alt="" width="220" height="220">
+    <img class="circleTwo explosiveElement" src="img/oIlliustration.svg" alt="" width="200" height="200">
+    <img class="crossOne explosiveElement" src="img/xIllustration.svg" alt="" width="250" height="250">
+    <img class="crossTwo explosiveElement" src="img/xIllustration.svg" alt="" width="280" height="280">
 
-
-
+    <!-- THE SIDE SELECTION-->
+  
     <div class="sideSelection">
       <h1>Tic Tac Toe</h1>
       <div class="playerOptions">
-        <div class="xOption">
+        <div class="optionContainer">
+        <div class="xOption" class="explosive-element" id="explosiveElement">
           <svg id="redCircleForX" width="50" height="50" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <circle cx="50" cy="50" r="50" fill="#ED9EB7" />
           </svg>
@@ -34,15 +35,21 @@
             <path d="M5 5L44 47" stroke="black" stroke-width="10" stroke-linecap="round"/>
             <path d="M44 5L5 47" stroke="black" stroke-width="10" stroke-linecap="round"/>
           </svg>          
-          <h3>First</h3> 
-        </div>        
-        <div class="oOption">
+       
+        </div> 
+           <h3>First</h3> 
+      </div>
+      <div class="optionContainer">
+
+        <div class="oOption" class="explosive-element" id="explosiveElement">
           <svg id="greenCircleForO" width="50" height="50" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="50" cy="50" r="40" fill="#A8FBC4" />
+            <circle cx="50" cy="50" r="50" fill="#A8FBC4" />
           </svg>
-          <svg id="oIcon" width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg id="oIcon" width="56" height="56" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M49 27C49 39.1503 39.1503 49 27 49C14.8497 49 5 39.1503 5 27C5 14.8497 14.8497 5 27 5C39.1503 5 49 14.8497 49 27Z" stroke="black" stroke-width="10"/>
           </svg>
+      </div>
+
           <h3>Second</h3>
         </div>
     </div>

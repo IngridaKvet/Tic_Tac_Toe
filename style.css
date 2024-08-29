@@ -8,9 +8,19 @@ html{
     align-items: center;
 }
 
+h1,h2{
+    display: flex;
+    margin: auto;
+}
+
+h3{
+    display: flex;
+    justify-content: center;
+}
 .sideSelection{
     display: flex;
     flex-direction: column;
+    gap: 22px;
 }
 
 .playerOptions{
@@ -19,14 +29,35 @@ html{
     gap: 50px;
 }
 
+.optionContainer{
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
-#redCircleForX:hover circle {
+svg{
+    overflow: visible;
+}
+
+.xOption:hover #redCircleForX circle {
     fill: #EF476F;
+    animation: pulse 2s infinite;
+  }
+  .oOption:hover #greenCircleForO circle{
+    fill: #66FF89;
+    animation: pulse 2s infinite;
+
   }
 
-  #greenCircleForO:hover circle {
-    fill: #66FF89;
-  }
+  @keyframes pulse {
+    0%, 100% {
+        transform: scale(1); /* Normal size */
+    }
+    50% {
+        transform: scale(1.2); /* 20% bigger */
+    }
+}
 
 .xOption, .oOption{
     position: relative;
@@ -40,17 +71,67 @@ html{
     right: 0;
 }
 
+.oOption:hover #oIcon, .xOption:hover #xIcon{
+    animation: vibrate 0.6s linear infinite;
+}
 
-  #redCircleForX{
+@keyframes vibrate {
+    0% { transform: translateX(0); }
+    12% { transform: translateX(-4px); }
+    24% { transform: translateX(0); }
+    36% { transform: translateX(4px); }
+    48% { transform: translateX(0); }
+    60% { transform: translateX(-4px); }
+    72% { transform: translateX(0); }
+    84% { transform: translateX(4px); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes explode {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5); /* Scale up the element */
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(0); /* Shrink to 0 */
+        opacity: 0;
+    }
+}
+
+
+
+  #redCircleForX, #greenCircleForO{
     position: absolute;
     bottom: 0px;
     right: 0px;
     transform: translate(-45%, -45%);
+    transition: transform 0.3s ease; 
   }
 
 
 
+  .explode {
+    animation: explode 0.6s forwards;
+}
 
+@keyframes explode {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
 
 
 
@@ -108,6 +189,19 @@ html{
     right: 8vw; 
 }
 
+
+
+.greenDotOne:hover,
+.greenDotTwo:hover,
+.greenDotThree:hover,
+.crossOne:hover,
+.crossTwo:hover,
+.circleOne:hover,
+.circleTwo:hover,
+.redDotOne:hover,
+.redDotTwo:hover{
+    animation: vibrate 0.6s linear infinite;
+}
 
 @media (max-width: 1418px) { 
     .greenDotOne,
