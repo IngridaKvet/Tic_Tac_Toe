@@ -1,26 +1,32 @@
-document.querySelectorAll('.xOption, .oOption').forEach(el => {
-    el.addEventListener('click', function() {
-        // Add the explode class to trigger the explosion animation
-        this.classList.add('explode');
-        console.log("boom")
+//Animations for Side Selection
+const xOption = document.getElementById('xOption');
+const playerOrderFirst = document.getElementById('playerOrderFirst');
+const oOption = document.getElementById('oOption');
+const playerOrderSecond = document.getElementById('playerOrderSecond');
+const sideSelection = document.getElementById('sideSelection');
 
-        this.addEventListener('animationend', () => {
-            this.classList.remove('explode');
-            // Optionally reset styles here if needed
-        }, { once: true });
-    });
+xOption.addEventListener('click', () => {
+    xOption.classList.add('explode');
+    sideSelection.classList.add('fadeOut');
 });
 
-document.querySelectorAll('.explosiveElement').forEach(el => {
-    el.addEventListener('click', function() {
-        // Add the explode class to trigger the explosion animation
-        this.classList.add('explode');
-        console.log("boom")
-
-        this.addEventListener('animationend', () => {
-            this.classList.remove('explode');
-            // Optionally reset styles here if needed
-        }, { once: true });
-    });
+oOption.addEventListener('click', () => {
+    oOption.classList.add('explode');
+    sideSelection.classList.add('fadeOut');
 });
 
+xOption.addEventListener('mouseover', () => {
+    playerOrderFirst.style.color = 'black';
+});
+
+xOption.addEventListener('mouseout', () => {
+    playerOrderFirst.style.color = "#636363"; 
+});
+
+oOption.addEventListener('mouseover', () => {
+    playerOrderSecond.style.color = 'black';
+});
+
+oOption.addEventListener('mouseout', () => {
+    playerOrderSecond.style.color = "#636363";
+});

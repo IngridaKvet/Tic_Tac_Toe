@@ -4,57 +4,53 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <img class="greenDotOne explosiveElement" src="img/greenDot.svg" alt="" width="80" height="80">
-    <img class="greenDotTwo explosiveElement" src="img/greenDot.svg" alt="" width="50" height="50">
-    <img class="greenDotThree explosiveElement" src="img/greenDot.svg" alt="" width="70" height="70">
-    <img class="redDotOne explosiveElement" src="img/redDot.svg" alt="" width="50" height="50">
-    <img class="redDotTwo explosiveElement" src="img/redDot.svg" alt="" width="40" height="40">
-    <img class="circleOne explosiveElement" src="img/oIlliustration.svg" alt="" width="220" height="220">
-    <img class="circleTwo explosiveElement" src="img/oIlliustration.svg" alt="" width="200" height="200">
-    <img class="crossOne explosiveElement" src="img/xIllustration.svg" alt="" width="250" height="250">
-    <img class="crossTwo explosiveElement" src="img/xIllustration.svg" alt="" width="280" height="280">
+    <!-- Background images-->
+    <img class="greenDotOne" src="img/greenDot.svg" alt="" width="80" height="80">
+    <img class="greenDotTwo" src="img/greenDot.svg" alt="" width="50" height="50">
+    <img class="greenDotThree" src="img/greenDot.svg" alt="" width="70" height="70">
+    <img class="redDotOne" src="img/redDot.svg" alt="" width="50" height="50">
+    <img class="redDotTwo" src="img/redDot.svg" alt="" width="40" height="40">
+    <img class="circleOne" src="img/oIlliustration.svg" alt="" width="220" height="220">
+    <img class="circleTwo" src="img/oIlliustration.svg" alt="" width="200" height="200">
+    <img class="crossOne" src="img/xIllustration.svg" alt="" width="250" height="250">
+    <img class="crossTwo" src="img/xIllustration.svg" alt="" width="280" height="280">
 
-    <!-- THE SIDE SELECTION-->
-  
-    <div class="sideSelection">
-      <h1>Tic Tac Toe</h1>
+    <!-- The side Selection-->
+    <div id="sideSelection">
+      <h1 id="headline">Tic Tac Toe</h1>
       <div class="playerOptions">
         <div class="optionContainer">
-        <div class="xOption" class="explosive-element" id="explosiveElement">
-          <svg id="redCircleForX" width="50" height="50" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="50" cy="50" r="50" fill="#ED9EB7" />
-          </svg>
-          <svg id="xIcon" width="49" height="52" viewBox="0 0 49 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5 5L44 47" stroke="black" stroke-width="10" stroke-linecap="round"/>
-            <path d="M44 5L5 47" stroke="black" stroke-width="10" stroke-linecap="round"/>
-          </svg>          
-       
-        </div> 
-           <h3>First</h3> 
-      </div>
-      <div class="optionContainer">
-
-        <div class="oOption" class="explosive-element" id="explosiveElement">
-          <svg id="greenCircleForO" width="50" height="50" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="50" cy="50" r="50" fill="#A8FBC4" />
-          </svg>
-          <svg id="oIcon" width="56" height="56" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M49 27C49 39.1503 39.1503 49 27 49C14.8497 49 5 39.1503 5 27C5 14.8497 14.8497 5 27 5C39.1503 5 49 14.8497 49 27Z" stroke="black" stroke-width="10"/>
-          </svg>
-      </div>
-
-          <h3>Second</h3>
+          <div id="xOption">
+            <svg id="redCircleForX" width="50" height="50" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="50" fill="#ED9EB7" />
+            </svg>
+            <svg id="xIcon" width="49" height="52" viewBox="0 0 49 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 5L44 47" stroke="black" stroke-width="10" stroke-linecap="round"/>
+              <path d="M44 5L5 47" stroke="black" stroke-width="10" stroke-linecap="round"/>
+            </svg>          
+          </div> 
+          <h3 id="playerOrderFirst">First</h3> 
         </div>
-    </div>
-      
-      <h2>Pick your side!</h2>
+        <div class="optionContainer">
+          <div id="oOption">
+            <svg id="greenCircleForO" width="50" height="50" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="50" fill="#A8FBC4" />
+            </svg>
+            <svg id="oIcon" width="56" height="56" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M49 27C49 39.1503 39.1503 49 27 49C14.8497 49 5 39.1503 5 27C5 14.8497 14.8497 5 27 5C39.1503 5 49 14.8497 49 27Z" stroke="black" stroke-width="10"/>
+            </svg>
+          </div>
+          <h3 id="playerOrderSecond">Second</h3>
+        </div>
+      </div>
+      <h2 id="subHeadline">Pick your side!</h2>
     </div>
 
 

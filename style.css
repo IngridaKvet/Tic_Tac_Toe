@@ -8,16 +8,19 @@ html{
     align-items: center;
 }
 
-h1,h2{
+#headline,#subHeadline{
     display: flex;
     margin: auto;
 }
 
-h3{
+#playerOrderFirst,
+#playerOrderSecond{
     display: flex;
     justify-content: center;
+    color: #636363;
 }
-.sideSelection{
+
+#sideSelection{
     display: flex;
     flex-direction: column;
     gap: 22px;
@@ -43,14 +46,14 @@ svg{
 .xOption:hover #redCircleForX circle {
     fill: #EF476F;
     animation: pulse 2s infinite;
-  }
-  .oOption:hover #greenCircleForO circle{
+}
+
+.oOption:hover #greenCircleForO circle{
     fill: #66FF89;
     animation: pulse 2s infinite;
+}
 
-  }
-
-  @keyframes pulse {
+@keyframes pulse {
     0%, 100% {
         transform: scale(1); /* Normal size */
     }
@@ -59,7 +62,7 @@ svg{
     }
 }
 
-.xOption, .oOption{
+#xOption, #oOption{
     position: relative;
     width: 80px;
     height: 80px;
@@ -71,7 +74,7 @@ svg{
     right: 0;
 }
 
-.oOption:hover #oIcon, .xOption:hover #xIcon{
+#oOption:hover #oIcon, #xOption:hover #xIcon{
     animation: vibrate 0.6s linear infinite;
 }
 
@@ -93,28 +96,24 @@ svg{
         opacity: 1;
     }
     50% {
-        transform: scale(1.5); /* Scale up the element */
+        transform: scale(1.5); 
         opacity: 0.5;
     }
     100% {
-        transform: scale(0); /* Shrink to 0 */
+        transform: scale(0);
         opacity: 0;
     }
 }
 
-
-
-  #redCircleForX, #greenCircleForO{
+#redCircleForX, #greenCircleForO{
     position: absolute;
     bottom: 0px;
     right: 0px;
     transform: translate(-45%, -45%);
     transition: transform 0.3s ease; 
-  }
-
-
-
-  .explode {
+}
+  
+.explode {
     animation: explode 0.6s forwards;
 }
 
@@ -133,6 +132,18 @@ svg{
     }
 }
 
+.fadeOut{
+    animation: fadeOut 1s forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
 
 
 .greenDotOne {
@@ -188,8 +199,6 @@ svg{
     top: 12vh; 
     right: 8vw; 
 }
-
-
 
 .greenDotOne:hover,
 .greenDotTwo:hover,
