@@ -5,10 +5,17 @@ const playerOrderFirst = document.getElementById('playerOrderFirst');
 const oOption = document.getElementById('oOption');
 const playerOrderSecond = document.getElementById('playerOrderSecond');
 const sideSelection = document.getElementById('sideSelection');
+const boardSection = document.getElementById('boardSection');
 
 xOption.addEventListener('click', () => {
     xOption.classList.add('explode');
     sideSelection.classList.add('fadeOut');
+    setTimeout(() => {
+      sideSelection.style.display = "none";
+  }, 1000);
+  setTimeout(() => {
+    boardSection.style.display = "flex";
+}, 1001);
     initializeGame('X', 'O'); 
     
 });
