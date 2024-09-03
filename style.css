@@ -43,12 +43,12 @@ svg{
     overflow: visible;
 }
 
-.xOption:hover #redCircleForX circle {
+#xOption:hover #redCircleForX circle {
     fill: #EF476F;
     animation: pulse 2s infinite;
 }
 
-.oOption:hover #greenCircleForO circle{
+#oOption:hover #greenCircleForO circle{
     fill: #66FF89;
     animation: pulse 2s infinite;
 }
