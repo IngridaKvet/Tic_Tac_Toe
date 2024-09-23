@@ -32,10 +32,12 @@ html{
 }
 
 .optionContainer{
-    width: 100px;
+    width: 150px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    justify-content: center;
+    align-items: center;
 }
 
 svg{
@@ -56,6 +58,7 @@ svg{
 
 #oOptionIcon:hover #oIcon, #xOptionIcon:hover #xIcon{
     animation: vibrate 0.6s linear infinite;
+    cursor: pointer;
 }
 
 #xOptionIcon:hover #redCircleForX circle {
@@ -68,12 +71,36 @@ svg{
     animation: pulse 2s infinite;
 }
 
-#firstPlayerName,
-#secondPlayerName{
+.playerName{
     display: flex;
     justify-content: center;
     color: #636363;
     text-align: center;
+    cursor: pointer;
+}
+
+#firstPlayerName:hover{
+    color: #EF476F;
+}
+
+#secondPlayerName:hover{
+    color: #66FF89;
+}
+
+.optionContainer > h3{
+    min-width: 150px;
+    max-width: 150px;
+    word-break:break-all;
+    padding-left: 20px;
+}
+
+input{
+    background-color: #EBF6FF;
+    height: 30px;
+    border-radius: 15px;
+    padding-left: 10px;
+    margin-top: 12.5px;
+    margin-bottom: 12.5px;
 }
 
 #redCircleForX, #greenCircleForO{

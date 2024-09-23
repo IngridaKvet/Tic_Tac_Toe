@@ -19,18 +19,33 @@ Flow of game
 
 */
 
-
-// Set initial event listeners on Side Selection Screen
+//Selection Screen where players pick sides and input their name
 (function(){
-    const xOptionIcon = document.getElementById('xOptionIcon');
-    const firstPlayerName = document.getElementById('firstPlayerName');
-    const oOptionIcon = document.getElementById('oOptionIcon');
-    const secondPlayerName = document.getElementById('secondPlayerName');
-    const sideSelectionScreen = document.getElementById('sideSelectionScreen');
-    const boardScreen = document.getElementById('boardScreen');
+    //Hover effects for player names 
+    function addPlayerNameHovers(){
+      const firstPlayerName = document.getElementById('firstPlayerName');
+      const secondPlayerName = document.getElementById('secondPlayerName');
+      
+      firstPlayerName.addEventListener('mouseover', () => {
+        firstPlayerName.style.color = '#EF476F';
+      });
+  
+      firstPlayerName.addEventListener('mouseout', () => {
+        firstPlayerName.style.color = '#636363';
+      });
+  
+      secondPlayerName.addEventListener('mouseover', () => {
+        secondPlayerName.style.color = '#66FF89';
+      });
+  
+      secondPlayerName.addEventListener('mouseout', () => {
+        secondPlayerName.style.color = '#636363';
+      });
+    }
 
-    // Hover effects for X player name
-    xOptionIcon.addEventListener('mouseover', () => {
+    // Side Selection Hovers
+    function addSideSelectionHovers(){
+      xOptionIcon.addEventListener('mouseover', () => {
         firstPlayerName.style.color = 'black';
     });
 
@@ -38,7 +53,6 @@ Flow of game
         firstPlayerName.style.color = "#636363";
     });
 
-    // Hover effects for O player name
     oOptionIcon.addEventListener('mouseover', () => {
         secondPlayerName.style.color = 'black';
     });
@@ -46,34 +60,99 @@ Flow of game
     oOptionIcon.addEventListener('mouseout', () => {
         secondPlayerName.style.color = "#636363";
     });
+    }
+    
+    function removeSideSelectionHovers(){
+      xOptionIcon.removeEventListener('mouseover', () => {
+        firstPlayerName.style.color = 'black';
+        console.log("HEHEHHEHEHEH")
+    });
 
+    xOptionIcon.removeEventListener('mouseout', () => {
+        firstPlayerName.style.color = "#636363";
+    });
 
-    // Hide the Side Selection Screen and show the Board Screen
-    xOptionIcon.addEventListener('click', () => {
-        xOptionIcon.classList.add('explode');
-        sideSelectionScreen.classList.add('fadeOut');
-        setTimeout(() => {
-          sideSelectionScreen.style.display = "none";
-        }, 1000);
-        boardScreen.classList.add('fadeIn')
-        setTimeout(() => {
-          boardScreen.style.display = "flex";
-        }, 1001);
-        //initializeGame('X', 'O');
-      });
-  
-    oOptionIcon.addEventListener('click', () => {
-        oOptionIcon.classList.add('explode');
-        sideSelectionScreen.classList.add('fadeOut');
-        setTimeout(() => {
-          sideSelectionScreen.style.display = "none";
-        }, 1000);
-        boardScreen.classList.add('fadeIn')
-        setTimeout(() => {
-          boardScreen.style.display = "flex";
-        }, 1001);
-        //initializeGame('O', 'X');
-      });
+    oOptionIcon.removeEventListener('mouseover', () => {
+        secondPlayerName.style.color = 'black';
+    });
+
+    oOptionIcon.removeEventListener('mouseout', () => {
+        secondPlayerName.style.color = "#636363";
+    });
+    }
+    
+
+    // Input Fields for name
+    function handleClickOnText(event){
+      const currentElement = event.target;
+      const currentElementId = currentElement.id;
+      const currentText = currentElement.textContent
+      const inputElement = document.createElement('input');
+      inputElement.type = 'text';
+      inputElement.value = currentText;
+      currentElement.parentNode.replaceChild(inputElement,currentElement);
+      inputElement.focus();
+      
+      inputElement.addEventListener('blur', () =>{
+        const updatedText = inputElement.value;
+        const newPlayerName = document.createElement('h3');
+        newPlayerName.textContent = updatedText;
+        newPlayerName.setAttribute('class','playerName')
+        newPlayerName.setAttribute('id', currentElementId)
+        inputElement.parentNode.replaceChild(newPlayerName, inputElement)
+        newPlayerName.addEventListener('click', handleClickOnText); //Reapply
+        addPlayerNameHovers();
+        addSideSelectionHovers();
+      })
+
+      inputElement.addEventListener('keypress', function(event){
+        if(event.key == 'Enter'){
+          inputElement.blur();
+        }
+      })
+    }
+
+    const firstPlayerNameElement = document.getElementById("firstPlayerName");
+    firstPlayerNameElement.addEventListener('click', handleClickOnText)
+    const secondPlayerNameElement = document.getElementById("secondPlayerName");
+    secondPlayerNameElement.addEventListener('click', handleClickOnText)
+
+    //Hide side selection page and show board
+    function replaceSideSelectionWithBoard(event){
+      const xOptionIcon = document.getElementById('xOptionIcon');
+      const oOptionIcon = document.getElementById('oOptionIcon');
+      const sideSelectionScreen = document.getElementById('sideSelectionScreen');
+      const boardScreen = document.getElementById('boardScreen');
+      const firstPlayerNameElement = document.getElementById("firstPlayerName");
+      const secondPlayerNameElement = document.getElementById("secondPlayerName");
+
+      const selectedSide = event.target;
+      selectedSide.classList.add('explode');
+      sideSelectionScreen.classList.add('fadeOut');
+      setTimeout(() => {
+        sideSelectionScreen.style.display = "none";
+      }, 1000);
+      boardScreen.classList.add('fadeIn')
+      setTimeout(() => {
+        boardScreen.style.display = "flex";
+      }, 1001);
+
+      const players = [
+        {
+          name: firstPlayerNameElement.textContent,
+          token: 'X'
+        },
+        {
+          name: secondPlayerNameElement.textContent,
+          token: 'O'
+        }
+      ];
+      console.log(players[0].name)
+      console.log(players[1].name)
+    }
+
+    xOptionIcon.addEventListener('click', replaceSideSelectionWithBoard)
+    oOptionIcon.addEventListener('click', replaceSideSelectionWithBoard)
 })();
 
 
