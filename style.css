@@ -251,6 +251,7 @@ h2{
     height: 330px;
     border: 12px solid #000;
     border-radius: 50px;
+    margin-bottom: 20px;
 }
 
 #cell1{
@@ -522,7 +523,4 @@ p{
 }
 
 
-.boardCell{
-    
-}
 

@@ -19,13 +19,19 @@ Flow of game
 
 */
 
+
 //Selection Screen where players pick sides and input their name
 (function(){
+  const xOptionIcon = document.getElementById('xOptionIcon');
+  const oOptionIcon = document.getElementById('oOptionIcon');
+  const sideSelectionScreen = document.getElementById('sideSelectionScreen');
+  const boardScreen = document.getElementById('boardScreen');
+  const resetButton = document.getElementById('resetButton');
+
     //Hover effects for player names 
     function addPlayerNameHovers(){
       const firstPlayerName = document.getElementById('firstPlayerName');
       const secondPlayerName = document.getElementById('secondPlayerName');
-      
       firstPlayerName.addEventListener('mouseover', () => {
         firstPlayerName.style.color = '#EF476F';
       });
@@ -42,45 +48,29 @@ Flow of game
         secondPlayerName.style.color = '#636363';
       });
     }
+    addPlayerNameHovers();
 
     // Side Selection Hovers
     function addSideSelectionHovers(){
+      const firstPlayerName = document.getElementById('firstPlayerName');
+      const secondPlayerName = document.getElementById('secondPlayerName');
       xOptionIcon.addEventListener('mouseover', () => {
         firstPlayerName.style.color = 'black';
-    });
+      });
 
-    xOptionIcon.addEventListener('mouseout', () => {
+      xOptionIcon.addEventListener('mouseout', () => {
         firstPlayerName.style.color = "#636363";
-    });
+      });
 
-    oOptionIcon.addEventListener('mouseover', () => {
+      oOptionIcon.addEventListener('mouseover', () => {
         secondPlayerName.style.color = 'black';
-    });
+      });
 
-    oOptionIcon.addEventListener('mouseout', () => {
+      oOptionIcon.addEventListener('mouseout', () => {
         secondPlayerName.style.color = "#636363";
-    });
+      });
     }
-    
-    function removeSideSelectionHovers(){
-      xOptionIcon.removeEventListener('mouseover', () => {
-        firstPlayerName.style.color = 'black';
-        console.log("HEHEHHEHEHEH")
-    });
-
-    xOptionIcon.removeEventListener('mouseout', () => {
-        firstPlayerName.style.color = "#636363";
-    });
-
-    oOptionIcon.removeEventListener('mouseover', () => {
-        secondPlayerName.style.color = 'black';
-    });
-
-    oOptionIcon.removeEventListener('mouseout', () => {
-        secondPlayerName.style.color = "#636363";
-    });
-    }
-    
+    addSideSelectionHovers();
 
     // Input Fields for name
     function handleClickOnText(event){
@@ -112,157 +102,78 @@ Flow of game
       })
     }
 
-    const firstPlayerNameElement = document.getElementById("firstPlayerName");
-    firstPlayerNameElement.addEventListener('click', handleClickOnText)
-    const secondPlayerNameElement = document.getElementById("secondPlayerName");
-    secondPlayerNameElement.addEventListener('click', handleClickOnText)
+    firstPlayerName.addEventListener('click', handleClickOnText)
+    secondPlayerName.addEventListener('click', handleClickOnText)
 
     //Hide side selection page and show board
-    function replaceSideSelectionWithBoard(event){
-      const xOptionIcon = document.getElementById('xOptionIcon');
-      const oOptionIcon = document.getElementById('oOptionIcon');
-      const sideSelectionScreen = document.getElementById('sideSelectionScreen');
-      const boardScreen = document.getElementById('boardScreen');
-      const firstPlayerNameElement = document.getElementById("firstPlayerName");
-      const secondPlayerNameElement = document.getElementById("secondPlayerName");
-
-      const selectedSide = event.target;
-      selectedSide.classList.add('explode');
+    function handleSideSelection(selectedIcon) {
+      selectedIcon.classList.add('explode');
       sideSelectionScreen.classList.add('fadeOut');
+
       setTimeout(() => {
-        sideSelectionScreen.style.display = "none";
+          sideSelectionScreen.style.display = "none";
       }, 1000);
-      boardScreen.classList.add('fadeIn')
+      boardScreen.classList.add('fadeIn');
       setTimeout(() => {
-        boardScreen.style.display = "flex";
+          boardScreen.style.display = "flex";
       }, 1001);
 
-      const players = [
-        {
-          name: firstPlayerNameElement.textContent,
-          token: 'X'
-        },
-        {
-          name: secondPlayerNameElement.textContent,
-          token: 'O'
-        }
+      const firstPlayerName = document.getElementById("firstPlayerName");
+      const secondPlayerName = document.getElementById("secondPlayerName");
+      players = [
+          {
+              name: firstPlayerName.textContent,
+              token: "X"
+          },
+          {
+              name: secondPlayerName.textContent,
+              token: "O"
+          }
       ];
-      console.log(players[0].name)
-      console.log(players[1].name)
+      console.log(players);
     }
 
-    xOptionIcon.addEventListener('click', replaceSideSelectionWithBoard)
-    oOptionIcon.addEventListener('click', replaceSideSelectionWithBoard)
-})();
+    xOptionIcon.addEventListener('click', () => handleSideSelection(xOptionIcon));
+    oOptionIcon.addEventListener('click', () => handleSideSelection(oOptionIcon));
 
-
-
-
-/*
-// IIFE to initialize game
-(function() {
-    // Factory function to create event handlers and setup
-    function setupGame(options) {
-      const { xOption, oOption, playerOrderFirst, playerOrderSecond, sideSelection, boardSection } = options;
-      
-      // Attach event listeners for X option
-      xOption.addEventListener('click', () => {
-        xOption.classList.add('explode');
-        sideSelection.classList.add('fadeOut');
-        setTimeout(() => {
-          sideSelection.style.display = "none";
-        }, 1000);
-        boardSection.classList.add('fadeIn')
-        setTimeout(() => {
-          boardSection.style.display = "flex";
-        }, 1001);
-        initializeGame('X', 'O');
-      });
-  
-      // Attach event listeners for O option
-      oOption.addEventListener('click', () => {
-        oOption.classList.add('explode');
-        sideSelection.classList.add('fadeOut');
-        setTimeout(() => {
-          sideSelection.style.display = "none";
-        }, 1000);
-        boardSection.classList.add('fadeIn')
-        setTimeout(() => {
-          boardSection.style.display = "flex";
-        }, 1001);
-        initializeGame('O', 'X');
-      });
-  
-      // Hover effects for X option
-      xOption.addEventListener('mouseover', () => {
-        playerOrderFirst.style.color = 'black';
-      });
-  
-      xOption.addEventListener('mouseout', () => {
-        playerOrderFirst.style.color = "#636363";
-      });
-  
-      // Hover effects for O option
-      oOption.addEventListener('mouseover', () => {
-        playerOrderSecond.style.color = 'black';
-      });
-  
-      oOption.addEventListener('mouseout', () => {
-        playerOrderSecond.style.color = "#636363";
-      });
-    }
-  
-    //Util function to reset UI elements to initial state
+    // Reset Game
     function resetGame() {
-      const sideSelection = document.getElementById('sideSelection');
-      const boardSection = document.getElementById('boardSection');
-      const xOption = document.getElementById('xOption');
-      const oOption = document.getElementById('oOption');
+      const sideSelection = document.getElementById('sideSelectionScreen');
+      const boardSection = document.getElementById('boardScreen');
+      const xOption = document.getElementById('xOptionIcon');
+      const oOption = document.getElementById('oOptionIcon');
       oOption.classList.remove('explode');
       xOption.classList.remove('explode');
       sideSelection.classList.remove('fadeOut');
       sideSelection.classList.add('fadeIn')
       setTimeout(() => {
         sideSelection.style.display = "flex";
-      }, 250);
+      }, 100);
       boardSection.style.display = "none";
       boardSection.classList.remove('fadeIn');
+
+       // Reset player names and objects
+       const firstPlayerName = document.getElementById("firstPlayerName");
+       const secondPlayerName = document.getElementById("secondPlayerName");
+       firstPlayerName.textContent = 'Player 1 Name';
+       secondPlayerName.textContent = 'Player 2 Name';
+       players = [
+           { name: 'Player 1 Name', token: 'X' },
+           { name: 'Player 2 Name', token: 'O' }
+       ];
+
+       addPlayerNameHovers();
+       addSideSelectionHovers();
     }
   
-    // IIFE to get initial setup DOM elements
-    (function() {
-      const xOption = document.getElementById('xOption');
-      const playerOrderFirst = document.getElementById('playerOrderFirst');
-      const oOption = document.getElementById('oOption');
-      const playerOrderSecond = document.getElementById('playerOrderSecond');
-      const sideSelection = document.getElementById('sideSelection');
-      const boardSection = document.getElementById('boardSection');
-  
-      // Setup game initially
-      setupGame({
-        xOption,
-        oOption,
-        playerOrderFirst,
-        playerOrderSecond,
-        sideSelection,
-        boardSection
-      });
-  
-      document.getElementById('resetButton').addEventListener('click', () => {
-        resetGame();  // Reset the game UI
-        setupGame({  // Reinitialize event handlers
-          xOption,
-          oOption,
-          playerOrderFirst,
-          playerOrderSecond,
-          sideSelection,
-          boardSection
-        });
-      });
-  
-  
-    })();
-  })();
+    resetButton.addEventListener('click', () => resetGame());
+
+})();
+
+
+
+
+/*
   
 
 
