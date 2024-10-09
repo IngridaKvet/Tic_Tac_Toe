@@ -36,7 +36,7 @@
               <path d="M44 5L5 47" stroke="black" stroke-width="10" stroke-linecap="round"/>
             </svg>          
           </div> 
-          <h3 class="playerName" id="firstPlayerName">Player 1 Name</h3> 
+          <h3 class="playerName" id="firstPlayerName">Player 1</h3> 
         </div>
         <div class="optionContainer">
           <div id="oOptionIcon">
@@ -47,7 +47,7 @@
               <path d="M49 27C49 39.1503 39.1503 49 27 49C14.8497 49 5 39.1503 5 27C5 14.8497 14.8497 5 27 5C39.1503 5 49 14.8497 49 27Z" stroke="black" stroke-width="10"/>
             </svg>
           </div>
-          <h3 class="playerName" id="secondPlayerName">Player 2 Name </h3>
+          <h3 class="playerName" id="secondPlayerName">Player 2</h3>
         </div>
       </div>
       <h2 id="subHeadline">Pick your side!</h2>
@@ -62,63 +62,64 @@
         <div class="row">
           <div class="boardCell" id="cell1">
             <p class="test">Hi</p>
-            <div class="partialBorderHorizontalLeftUp"></div>
-            <div class="partialBorderVerticalTopLeft"></div>
+            <div class="partialBorderHorizontalLeftUp" id="border1"></div>
+            <div class="partialBorderVerticalTopLeft" id="border2"></div>
           </div>
           <div class="boardCell" id="cell2">
-            <div class="partialBorderVerticalTopLeft"></div>
-            <div class="partialBorderVerticalTopRight"></div>
-            <div class="partialBorderTop"></div>
+            <div class="partialBorderVerticalTopLeft" id="border3"></div>
+            <div class="partialBorderVerticalTopRight" id="border4"></div>
+            <div class="partialBorderTop" id="border5"></div>
           </div>
           <div class="boardCell" id="cell3">
-            <div class=" partialBorderHorizontalRightUp"></div>
-            <div class=" partialBorderVerticalTopRight"></div>
+            <div class=" partialBorderHorizontalRightUp" id="border6"></div>
+            <div class=" partialBorderVerticalTopRight" id="border7"></div>
           </div>
         </div>
         <div class="row">
           <div class="boardCell" id="cell4">
-            <div class="partialBorderHorizontalLeftUp"></div>
-            <div class="partialBorderHorizontalLeftDown"></div>
-            <div class="partialBorderLeft"></div>
+            <div class="partialBorderHorizontalLeftUp" id="border8"></div>
+            <div class="partialBorderHorizontalLeftDown" id="border9"></div>
+            <div class="partialBorderLeft" id="border10"></div>
           </div>
           <div class="boardCell" id="cell5"></div>
           <div class="boardCell" id="cell6">
-            <div class="partialBorderHorizontalRightUp"></div>
-            <div class="partialBorderHorizontalRightDown"></div>
-            <div class="partialBorderRight"></div>
+            <div class="partialBorderHorizontalRightUp" id="border11"></div>
+            <div class="partialBorderHorizontalRightDown" id="border12"></div>
+            <div class="partialBorderRight" id="border13"></div>
           </div>
         </div>
         <div class="row">
           <div class="boardCell" id="cell7">
-            <div class="partialBorderVerticalBottomLeft"></div>
-            <div class="partialBorderHorizontalLeftDown"></div>
+            <div class="partialBorderVerticalBottomLeft" id="border14"></div>
+            <div class="partialBorderHorizontalLeftDown" id="border15"></div>
           </div>
           <div class="boardCell" id="cell8">
-            <div class="partialBorderVerticalBottomRight"></div>
-            <div class="partialBorderVerticalBottomLeft"></div>
-            <div class="partialBorderBottom"></div>
+            <div class="partialBorderVerticalBottomRight" id="border16"></div>
+            <div class="partialBorderVerticalBottomLeft" id="border17"></div>
+            <div class="partialBorderBottom" id="border18"></div>
           </div>
           <div class="boardCell" id="cell9">
-            <div class="partialBorderHorizontalRightDown"></div>
-            <div class="partialBorderVerticalBottomRight"></div>
+            <div class="partialBorderHorizontalRightDown" id="border19"></div>
+            <div class="partialBorderVerticalBottomRight" id="border20"></div>
           </div>
         </div>
       
       </div>
-      <h2>Player Name</h2>
+
+      <h2 id="playerTurn"></h2>
       <div class="playerScoreSection">
         <div class="xScore">
           <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 2L17 17" stroke="black" stroke-width="4" stroke-linecap="round"/>
             <path d="M17 2L2 17" stroke="black" stroke-width="4" stroke-linecap="round"/>
           </svg>
-          <h2>Score: 2</h2>
+          <h2 id="firstPlayerNameBoard"></h2>
         </div>
         <div class="oScore">
           <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M20.5 11.5C20.5 16.4706 16.4706 20.5 11.5 20.5C6.52944 20.5 2.5 16.4706 2.5 11.5C2.5 6.52944 6.52944 2.5 11.5 2.5C16.4706 2.5 20.5 6.52944 20.5 11.5Z" stroke="black" stroke-width="5"/>
             </svg>
-          <h2>Score: 2</h2>
+          <h2 id="secondPlayerNameBoard"></h2>
         </div>
       </div>
       <div class="resetSection" id="resetButton">
@@ -128,8 +129,6 @@
         <h2 id="subHeadline2" >Reset Game</h2>
       </div>
     </div>
-
-
 </body>
 
 <script src="script.js"></script>
