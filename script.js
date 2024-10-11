@@ -11,20 +11,19 @@ const Player = (name, sign) => {
         this.name = newName;
       }
     };
-  };
+};
 
-  // Board Object Factory
-  const Board = () => {
+// Board Object Factory
+const Board = () => {
     let boardState = Array(9).fill(null);
 
     // Update the board at a given index
     function updateBoard(index, sign) {
-        if (!boardState[index]) {
-            boardState[index] = sign;  // Update console board
-            document.querySelector(`#cell${index + 1}`).textContent = sign; // Update UI board
-            console.log(boardState)
-            return true; 
-        }
+      if (!boardState[index]) {
+        boardState[index] = sign;  // Update console board
+        document.querySelector(`#cell${index + 1}`).textContent = sign; // Update UI board
+        return true; 
+      }
         return false; 
     }
 
@@ -38,11 +37,10 @@ const Player = (name, sign) => {
       [2, 5, 8], // Third column
       [0, 4, 8], // Diagonal from top-left to bottom-right
       [2, 4, 6]  // Diagonal from top-right to bottom-left
-  ];
-
+    ];
+    
     function checkWin() {
       for (const combo of winningCombinations) {
-
           const [a, b, c] = combo;
           if (boardState[a] && boardState[a] === boardState[b] && boardState[a] === boardState[c]) {
             console.log(boardState[a])
@@ -50,11 +48,15 @@ const Player = (name, sign) => {
           }
       }
       return null; // No winner
-  }
+    }
 
     // Check for a tie
     function isBoardFull() {
-        return boardState.every(cell => cell !== null);
+      if(boardState.every(cell => cell !== null)){
+        return true
+      } else{
+        return false
+      }
     }
 
     // Reset the board
@@ -64,7 +66,6 @@ const Player = (name, sign) => {
         document.querySelectorAll('.boardCell').forEach(cell => cell.style.backgroundColor = "#EBF6FF"); 
         document.querySelectorAll('.boardCell').forEach(cell => cell.style.pointerEvents = 'auto'); 
         readdPartialBorders();
-
     }
 
     // Change cell color when div is pressed
@@ -192,10 +193,7 @@ const Game = (() => {
     (function init(){
           const firstPlayerName = document.getElementById('firstPlayerName');
           const secondPlayerName = document.getElementById('secondPlayerName');
-
           updateScore();
-
-        
 
           //Hover effects for player names 
           function addPlayerNameHovers(){
@@ -283,7 +281,6 @@ const Game = (() => {
           function handleSideSelection(selectedIcon) {
             selectedIcon.classList.add('explode');
             sideSelectionScreen.classList.remove('fadeIn');
-
             sideSelectionScreen.classList.add('fadeOut');
       
             setTimeout(() => {
@@ -298,18 +295,17 @@ const Game = (() => {
             const secondPlayerName = document.getElementById("secondPlayerName");
             const player1 = Player(firstPlayerName.textContent, 'X');
             const player2 = Player(secondPlayerName.textContent, 'O');
-
             document.getElementById("firstPlayerNameBoard").innerHTML = player1.name;
             document.getElementById("secondPlayerNameBoard").innerHTML = player2.name;
-
             updatePlayerTurn();
           }
       
           xOptionIcon.addEventListener('click', () => handleSideSelection(xOptionIcon));
           oOptionIcon.addEventListener('click', () => handleSideSelection(oOptionIcon));
       
-          // Reset Game
+          //Reset Game
           function resetGame() {
+            //Reset UI
             const sideSelection = document.getElementById('sideSelectionScreen');
             const boardSection = document.getElementById('boardScreen');
             const xOption = document.getElementById('xOptionIcon');
@@ -324,25 +320,26 @@ const Game = (() => {
             boardSection.style.display = "none";
             boardSection.classList.remove('fadeIn');
       
-             // Reset player names and objects
+             //Reset player objects
              const firstPlayerName = document.getElementById("firstPlayerName");
              const secondPlayerName = document.getElementById("secondPlayerName");
              firstPlayerName.textContent = 'Player 1';
              secondPlayerName.textContent = 'Player 2';
-             let player1 = Player(firstPlayerName.textContent, 'X', 0);
-             let player2 = Player(secondPlayerName.textContent, 'O', 0);
+             player1 = Player(firstPlayerName.textContent, 'X', 0);
+             player2 = Player(secondPlayerName.textContent, 'O', 0);
              console.log(player1);
              console.log(player2);
              addPlayerNameHovers();
              addSideSelectionHovers();
              currentPlayer = player1; 
-             switchPlayer();
+             updateScore();
+             hidePlayAgainBtn();
              board.resetBoard(); 
           }
-      
           resetButton.addEventListener('click', () => resetGame());
     })();
 
+    //Update score text
     function updateScore(){
       document.getElementById('xPlayerScore').textContent = `${player1.score}`;
       document.getElementById('oPlayerScore').textContent = `${player2.score}`;
@@ -359,6 +356,7 @@ const Game = (() => {
       document.getElementById('playerTurn').textContent = `${currentPlayer.name} won!`;
     }
 
+    //Show play again button
     function showPlayAgainBtn(){
       const playAgainBtn = document.getElementById("playAgainButton");
       playAgainBtn.style.marginTop = "15px";
@@ -371,8 +369,11 @@ const Game = (() => {
       });
     }
 
+    //Hide play again button
     function hidePlayAgainBtn(){
       document.getElementById("playAgainButton").textContent = ``;
+      document.getElementById("playAgainButton").style.marginTop = "0";
+
     }
 
     // Switch player turn
@@ -383,16 +384,18 @@ const Game = (() => {
     }
 
     function makeMove(index) {
-      if (board.updateBoard(index, currentPlayer.sign)) { // If the move is valid
-  
+      if (board.updateBoard(index, currentPlayer.sign)) { 
         const cell = document.querySelector(`#cell${index + 1}`);
         board.readdPartialBorders();
         board.changeCellBgColor(cell, currentPlayer, player1, player2);
         board.disableCell(cell);
-        switchPlayer(); // Continue the game
+        switchPlayer();
 
         //Tie case
-
+        if(board.isBoardFull() == true){
+          document.getElementById('playerTurn').textContent = `It's a Tie!`;
+          showPlayAgainBtn();
+        }
 
         //Win case
         let winningSide = board.checkWin();
@@ -409,25 +412,16 @@ const Game = (() => {
           updateScore();
           showWhoWOn();
           showPlayAgainBtn();
-
         }
-
-
-
-
-
-
-        //switchPlayer(); // Continue the game
       }
     }
 
     return {
-      makeMove,
-      
+      makeMove
     };
 })();
 
-
+//Event listener for any cell is pressed
 document.querySelectorAll('.boardCell').forEach((cell, index) => {
   cell.addEventListener('click', () => Game.makeMove(index));
 

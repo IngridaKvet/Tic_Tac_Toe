@@ -160,12 +160,6 @@ input{
     align-items: center;
 }
 
-
-
-
-
-
-
 .resetSection:hover #redCircleForReset circle {
     fill: #EF476F;
     animation: pulse 2s infinite;
@@ -174,14 +168,6 @@ input{
 .resetSection:hover #subHeadline2{
     color: #000;
 }
-
-
-
-
-
-
-
-
 
 .fadeOut{
     animation: fadeOut 1s forwards;
@@ -215,9 +201,6 @@ input{
     }
 }
 
-
-
-
 h2{
     margin:0;
 }
@@ -229,8 +212,6 @@ h2{
     gap: 80px;
 }
 
-
-
 .oScore,
 .xScore{
     display: flex;
@@ -241,7 +222,6 @@ h2{
 }
 
 /* Board */
-
 #boardHeading{
     margin-bottom: 10px;
 }
@@ -298,7 +278,6 @@ p{
     background-color: #cdd2d4;
 }
 
-
 .resetSection{
     position: relative;
     margin-top: 20px;
@@ -306,8 +285,8 @@ p{
 
 #redCircleForReset{
     position: absolute;
-    bottom: -5px;
-    right: 108px;
+    bottom: -3px;
+    right: 150px;
     z-index: -1;
 }
 
@@ -526,6 +505,3 @@ p{
         display: none;
     }
 }
-
-
-
