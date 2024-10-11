@@ -22,17 +22,35 @@ const Player = (name, sign) => {
         if (!boardState[index]) {
             boardState[index] = sign;  // Update console board
             document.querySelector(`#cell${index + 1}`).textContent = sign; // Update UI board
+            console.log(boardState)
             return true; 
         }
         return false; 
     }
 
-    // Check if there's a winning combination
+    // Check if there's a winning combination using indexes
     const winningCombinations = [
-        [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
-        [0, 3, 6], [1, 4, 7], [2, 5, 8]  // Columns
-        [0, 4, 8], [2, 4, 6]             // Diagonals
-    ];
+      [0, 1, 2], // Top row
+      [3, 4, 5], // Middle row
+      [6, 7, 8], // Bottom row
+      [0, 3, 6], // First column
+      [1, 4, 7], // Second column
+      [2, 5, 8], // Third column
+      [0, 4, 8], // Diagonal from top-left to bottom-right
+      [2, 4, 6]  // Diagonal from top-right to bottom-left
+  ];
+
+    function checkWin() {
+      for (const combo of winningCombinations) {
+
+          const [a, b, c] = combo;
+          if (boardState[a] && boardState[a] === boardState[b] && boardState[a] === boardState[c]) {
+            console.log(boardState[a])
+              return boardState[a]; // Returns 'X' or 'O' as the winner
+          }
+      }
+      return null; // No winner
+  }
 
     // Check for a tie
     function isBoardFull() {
@@ -43,6 +61,20 @@ const Player = (name, sign) => {
     function resetBoard() {
         boardState = Array(9).fill(null); 
         document.querySelectorAll('.boardCell').forEach(cell => cell.textContent = ''); 
+        document.querySelectorAll('.boardCell').forEach(cell => cell.style.backgroundColor = "#EBF6FF"); 
+        document.querySelectorAll('.boardCell').forEach(cell => cell.style.pointerEvents = 'auto'); 
+        readdPartialBorders();
+
+    }
+
+    // Change cell color when div is pressed
+    function changeCellBgColor(cell, currentPlayer, player1, player2){
+      cell.style.backgroundColor = currentPlayer === player1 ? '#ED9EB7' : '#A8FBC4';
+    }
+
+    // Disable
+    function disableCell(cell){
+      cell.style.pointerEvents = 'none';
     }
 
     // Readd partial borders
@@ -136,43 +168,37 @@ const Player = (name, sign) => {
       cell9.appendChild(border19);
       cell9.appendChild(border20);
     }
-
-
-
+    
     return {
         updateBoard,
         readdPartialBorders,
-      
         isBoardFull,
-        resetBoard
+        resetBoard,
+        changeCellBgColor,
+        disableCell,
+        checkWin
     };
 };
 
 // Game Object Factory wrapped in IIFE
 const Game = (() => {
     // Create default players
-  
     let player1 = Player(firstPlayerName.textContent, 'X', 0);
     let player2 = Player(secondPlayerName.textContent, 'O', 0);
     let currentPlayer = player1;
     const board = Board();
     
-    //player1.incrementScore();
-    //player1.setName('Helena')
-
     // IIFE to initialize game 
     (function init(){
- 
-        //const xOptionIcon = document.getElementById('xOptionIcon');
-      //  const oOptionIcon = document.getElementById('oOptionIcon');
-        //const sideSelectionScreen = document.getElementById('sideSelectionScreen');
-        //const boardScreen = document.getElementById('boardScreen');
-        //const resetButton = document.getElementById('resetButton');
-      
+          const firstPlayerName = document.getElementById('firstPlayerName');
+          const secondPlayerName = document.getElementById('secondPlayerName');
+
+          updateScore();
+
+        
+
           //Hover effects for player names 
           function addPlayerNameHovers(){
-            const firstPlayerName = document.getElementById('firstPlayerName');
-            const secondPlayerName = document.getElementById('secondPlayerName');
             firstPlayerName.addEventListener('mouseover', () => {
               firstPlayerName.style.color = '#EF476F';
             });
@@ -193,8 +219,6 @@ const Game = (() => {
       
           // Side Selection Hovers
           function addSideSelectionHovers(){
-            const firstPlayerName = document.getElementById('firstPlayerName');
-            const secondPlayerName = document.getElementById('secondPlayerName');
             xOptionIcon.addEventListener('mouseover', () => {
               firstPlayerName.style.color = 'black';
             });
@@ -234,23 +258,32 @@ const Game = (() => {
               newPlayerName.addEventListener('click', handleClickOnText); //Reapply
               addPlayerNameHovers();
               addSideSelectionHovers();
-            })
-      
+
+              // Update the player name based on which player was clicked
+              if (currentElementId === 'firstPlayerName') {
+                player1.setName(updatedText); 
+              } else if (currentElementId === 'secondPlayerName') {
+                player2.setName(updatedText); 
+              }
+
+              // Update the display for the turn indicator
+              updatePlayerTurn();
+              })
+
             inputElement.addEventListener('keypress', function(event){
               if(event.key == 'Enter'){
                 inputElement.blur();
               }
             })
           }
-
-          const firstPlayerName = document.getElementById('firstPlayerName');
-          const secondPlayerName = document.getElementById('secondPlayerName');
           firstPlayerName.addEventListener('click', handleClickOnText)
           secondPlayerName.addEventListener('click', handleClickOnText)
       
           //Hide side selection page and show board
           function handleSideSelection(selectedIcon) {
             selectedIcon.classList.add('explode');
+            sideSelectionScreen.classList.remove('fadeIn');
+
             sideSelectionScreen.classList.add('fadeOut');
       
             setTimeout(() => {
@@ -269,20 +302,12 @@ const Game = (() => {
             document.getElementById("firstPlayerNameBoard").innerHTML = player1.name;
             document.getElementById("secondPlayerNameBoard").innerHTML = player2.name;
 
-            let currentPlayer = player1;
             updatePlayerTurn();
-            //document.getElementById("playerTurn").innerHTML = "It's " + currentPlayer.name + "'s turn";
-
-            return { player1, player2, currentPlayer};
-
-    
           }
       
           xOptionIcon.addEventListener('click', () => handleSideSelection(xOptionIcon));
           oOptionIcon.addEventListener('click', () => handleSideSelection(oOptionIcon));
       
-
-          
           // Reset Game
           function resetGame() {
             const sideSelection = document.getElementById('sideSelectionScreen');
@@ -310,35 +335,47 @@ const Game = (() => {
              console.log(player2);
              addPlayerNameHovers();
              addSideSelectionHovers();
-             currentPlayer = player1; // Start with player1
-             updatePlayerTurn();
-             board.resetBoard(); // this trows error
+             currentPlayer = player1; 
+             switchPlayer();
+             board.resetBoard(); 
           }
       
-      
-    
-          resetButton.addEventListener('click', () => console.log(resetGame()));
-
-/*
-          const divs = document.querySelectorAll('.boardCell');
-          divs.forEach(div => {
-      
-            div.addEventListener('mouseover', () => {
-              div.style.backgroundColor = '#ED9EB7'; 
-            });
-      
-            div.addEventListener('mouseout', () => {
-              div.style.backgroundColor = '#EBF6FF';
-            });
-          });*/
-       
+          resetButton.addEventListener('click', () => resetGame());
     })();
 
+    function updateScore(){
+      document.getElementById('xPlayerScore').textContent = `${player1.score}`;
+      document.getElementById('oPlayerScore').textContent = `${player2.score}`;
+    }
 
+    //Update player turn text
     function updatePlayerTurn() {
       document.getElementById('playerTurn').textContent = `It's ${currentPlayer.name}'s turn`;
     }
 
+    //Change player turn text to show who won
+    function showWhoWOn(){ 
+      switchPlayer();
+      document.getElementById('playerTurn').textContent = `${currentPlayer.name} won!`;
+    }
+
+    function showPlayAgainBtn(){
+      const playAgainBtn = document.getElementById("playAgainButton");
+      playAgainBtn.style.marginTop = "15px";
+      playAgainBtn.textContent = `Play Again`;
+      playAgainBtn.addEventListener('click', () => {
+        board.resetBoard();
+        currentPlayer = player1;
+        updatePlayerTurn();
+        hidePlayAgainBtn();
+      });
+    }
+
+    function hidePlayAgainBtn(){
+      document.getElementById("playAgainButton").textContent = ``;
+    }
+
+    // Switch player turn
     function switchPlayer() {
       currentPlayer = currentPlayer === player1 ? player2 : player1;
       console.log(currentPlayer)
@@ -347,75 +384,53 @@ const Game = (() => {
 
     function makeMove(index) {
       if (board.updateBoard(index, currentPlayer.sign)) { // If the move is valid
+  
         const cell = document.querySelector(`#cell${index + 1}`);
+        board.readdPartialBorders();
+        board.changeCellBgColor(cell, currentPlayer, player1, player2);
+        board.disableCell(cell);
+        switchPlayer(); // Continue the game
 
-        if (currentPlayer === player1) {
-          cell.style.backgroundColor = '#ED9EB7'; // Red for Player 1
-        } else {
-          cell.style.backgroundColor = '#A8FBC4'; // Green for Player 2
+        //Tie case
+
+
+        //Win case
+        let winningSide = board.checkWin();
+        if(winningSide == "X"){
+          player1.incrementScore();
+          document.querySelectorAll('.boardCell').forEach(cell => cell.style.pointerEvents = 'none'); 
+          updateScore();
+          showWhoWOn();
+          showPlayAgainBtn();
         }
-              board.readdPartialBorders();
-              switchPlayer(); // Continue the game
+        if(winningSide == "O"){
+          player2.incrementScore();
+          document.querySelectorAll('.boardCell').forEach(cell => cell.style.pointerEvents = 'none'); 
+          updateScore();
+          showWhoWOn();
+          showPlayAgainBtn();
 
-   
-    
+        }
+
+
+
+
+
+
+        //switchPlayer(); // Continue the game
       }
     }
-    
-    function addBoardHovers(){
 
-    const divs = document.querySelectorAll('.boardCell');
-
-  //Hover effects for board cell based on current player
-  if(currentPlayer.name == player1.name){
-    console.log("HIII")
-    divs.forEach(div => {
+    return {
+      makeMove,
       
-
-      div.addEventListener('mouseover', () => {
-        div.style.backgroundColor = '#ED9EB7'; 
-      });
-
-      div.addEventListener('mouseout', () => {
-        div.style.backgroundColor = '#EBF6FF';
-      });
-    });
-  } else{
-    
-    console.log("HOOO")
-    divs.forEach(div => {
-      
-      div.addEventListener('mouseover', () => {
-        div.style.backgroundColor = '#A8FBC4'; 
-      });
-
-      div.addEventListener('mouseout', () => {
-        div.style.backgroundColor = '#EBF6FF'; 
-      });
-      
-    });
-  }
-    }
-  
-
-      console.log(player1);
-      console.log(player2);
-      console.log(player1);
-      console.log(player2);
-    
-           
-      return {
-        makeMove,
-      addBoardHovers
-        
     };
-  
 })();
 
-document.querySelectorAll('.boardCell').forEach((cell, index) => {
 
-  cell.addEventListener('click', () => Game.addBoardHovers());
+document.querySelectorAll('.boardCell').forEach((cell, index) => {
   cell.addEventListener('click', () => Game.makeMove(index));
+
 });
   
 
